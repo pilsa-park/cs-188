@@ -371,7 +371,7 @@ def betterEvaluationFunction(currentGameState: GameState):
     """
     "*** YOUR CODE HERE ***"
     # util.raiseNotDefined()
-    # successorGameState = currentGameState.generatePacmanSuccessor(action)
+
     newPos = currentGameState.getPacmanPosition()
     newFood = currentGameState.getFood()
     newGhostStates = currentGameState.getGhostStates()
@@ -390,7 +390,9 @@ def betterEvaluationFunction(currentGameState: GameState):
         ghostPos = ghost.getPosition()
         dist = manhattanDistance(newPos, ghostPos)
         distFromGhosts.append(dist)
-        if dist > boardSize / 2 or dist > 2:
+        if dist > 3:
+            distFromGhosts.append(-dist)
+        elif ghost.scaredTimer > 0:
             distFromGhosts.append(-dist)
         else:
             distFromGhosts.append(dist)
